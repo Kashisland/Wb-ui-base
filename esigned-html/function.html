@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #file-upload {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        #stream {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #chat {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            height: 100vh;
+            /* 채팅 창의 높이를 화면 높이에 맞춤 */
+        }
+
+        #user-chat,
+        #ai-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #000;
+            padding: 10px;
+            overflow-y: auto;
+            width: 100%;
+            /* 채팅 창의 너비를 최대로 늘림 */
+        }
+
+        #user-chat-messages,
+        #ai-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        #user-chat-input,
+        #ai-chat-input,
+        #user-send-btn,
+        #ai-send-btn {
+            margin-top: 10px;
+            width: 100%;
+            /* 입력 필드와 버튼의 너비를 채팅 창 너비에 맞춤 */
+        }
+
+        /* 비디오 영역 스타일 */
+        #video-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* 네모 영역 스타일 */
+        #rectangle {
+            width: 800px;
+            /* 너비를 늘림 */
+            height: 600px;
+            /* 높이를 늘림 */
+            border: 1px solid #000;
+        }
+
+
+        #file-upload-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+            z-index: 9999;
+            width: 400px;
+            height: 300px;
+        }
+
+        #close-dialog-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        #drop_zone {
+            border: 2px dashed #bbb;
+            border-radius: 20px;
+            width: 300px;
+            height: 100px;
+            font-size: 24px;
+            line-height: 100px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="file-upload">
+            <button id="file-upload-btn">파일 업로드</button>
+            <button id="record-start">녹음 시작</button>
+            <button id="record-stop">녹음 중지</button>
+        </div>
+        <!-- 파일 업로드 다이얼로그 -->
+        <div id="file-upload-dialog" style="display: none;">
+            <button id="close-dialog-btn">다이얼로그 닫기</button>
+            <input type="file" id="file-input">
+            <div id="drop_zone">파일을 드래그 앤 드롭</div>
+        </div>
+        <!-- 비디오 영역 -->
+        <div id="video-area">
+            <!-- 네모 영역 -->
+            <div id="rectangle"></div>
+        </div>
+        <div id="chat">
+            <div id="user-chat">
+                <p>유저 채팅창</p>
+                <ul id="user-chat-messages"></ul>
+                <input id="user-chat-input" type="text" placeholder="메시지를 입력하세요">
+                <button id="user-send-btn">전송</button>
+            </div>
+            <div id="ai-chat">
+                <p>AI 챗봇 채팅창</p>
+                <ul id="ai-chat-messages"></ul>
+                <input id="ai-chat-input" type="text" placeholder="메시지를 입력하세요">
+                <button id="ai-send-btn">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 여기에 기능 구현을 위한 JavaScript 코드를 작성하세요.
+        // 파일 업로드 버튼 클릭 이벤트
+        document.getElementById('file-upload-btn').addEventListener('click', function () {
+            document.getElementById('file-upload-dialog').style.display = 'block';
+        });
+
+        // 다이얼로그 닫기 버튼 클릭 이벤트
+        document.getElementById('close-dialog-btn').addEventListener('click', function () {
+            document.getElementById('file-upload-dialog').style.display = 'none';
+        });
+
+
+        // 파일 드래그 앤 드롭 이벤트
+        var dropZone = document.getElementById('drop_zone');
+        dropZone.addEventListener('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+
+        dropZone.addEventListener('drop', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var files = e.dataTransfer.files; // 드롭한 파일들
+
+            // 파일 처리 로직을 여기에 작성하세요.
+        });
+
+        // 파일 선택 이벤트
+        document.getElementById('file-input').addEventListener('change', function (e) {
+            var files = e.target.files; // 선택한 파일들
+
+            // 파일 처리 로직을 여기에 작성하세요.
+        });
+    </script>
+</body>
+
+</html>
